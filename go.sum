@@ -1,0 +1,4 @@
+github.com/antonmashko/envconf v0.0.0-20190904194951-a80acba595ab h1:Sgh7YMczfR8gVQRDQRn3B0pRyQUZayUNZmabgS32Q4k=
+github.com/antonmashko/envconf v0.0.0-20190904194951-a80acba595ab/go.mod h1:zPlNgpKBEwdh9C9eEkM7StF+LUut2t2DFkpPYmwt6rs=
+github.com/antonmashko/log v0.0.0-20190214194943-e3fa6fe20e17 h1:Nsf8d4FF9xZL7yWvhLJQ3uSuQzj8/SQdQZ7/wjAdR3w=
+github.com/antonmashko/log v0.0.0-20190214194943-e3fa6fe20e17/go.mod h1:R+UYgMx7AoXdOexaHHIxgwonoIj5K+85Zssjh/RAwJM=
