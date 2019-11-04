@@ -13,4 +13,5 @@
 
 vendor/
 
+# ide
 .vscode/

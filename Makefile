@@ -1,8 +1,8 @@
 NAME=template
 VERSION=1.0
 
-debug:
-	echo 1
+debug: run
+
 
 build:
 	go build -o ${NAME} .
