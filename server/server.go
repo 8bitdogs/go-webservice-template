@@ -4,16 +4,17 @@ import (
 	"net/http"
 	"reflect"
 	"runtime"
+	"runtime/debug"
 
 	"github.com/8bitdogs/ruffe"
 	"github.com/antonmashko/log"
 )
 
 type Server struct {
-	logger     log.Logger
-	rs         *ruffe.Server
-	handler    *ruffe.Middleware
-	useRecover bool
+	logger       log.Logger
+	rs           *ruffe.Server
+	handler      *ruffe.Middleware
+	recoverPanic bool
 }
 
 func New() *Server {
@@ -26,7 +27,7 @@ func New() *Server {
 func (s *Server) Handle(pattern, method string, h ruffe.Handler) {
 	s.logger.Infof("adding pattern=%s method=%s handler=%s",
 		pattern, method, runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name())
-	if s.useRecover {
+	if s.recoverPanic {
 		h = s.recoverMiddleware(h)
 	}
 	s.rs.Handle(pattern, method, h)
@@ -51,8 +52,8 @@ func (s *Server) UseAccessLog() log.Logger {
 // 	return nil
 // }
 
-func (s *Server) UseRecover() {
-	s.useRecover = true
+func (s *Server) RecoverPanic() {
+	s.recoverPanic = true
 }
 
 func (s *Server) ListenAndServe(addr string) error {
@@ -63,7 +64,7 @@ func (s *Server) recoverMiddleware(h ruffe.Handler) ruffe.Handler {
 	return ruffe.HandlerFunc(func(ctx ruffe.Context) error {
 		defer func() {
 			if r := recover(); r != nil {
-				s.logger.Errorf("panic recovered. cause=%v", r)
+				s.logger.Errorf("panic recovered. cause=%v trace=%s", r, debug.Stack())
 				ctx.Result(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
 				return
 			}

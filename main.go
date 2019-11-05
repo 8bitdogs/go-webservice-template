@@ -8,7 +8,6 @@ import (
 	"webservice-template/database"
 	"webservice-template/server"
 
-	"github.com/8bitdogs/ruffe"
 	"github.com/antonmashko/log"
 	_ "github.com/lib/pq"
 )
@@ -20,25 +19,24 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Info(cfg.Database.ConnectionString())
 	_, err = database.Connect(cfg.DatabaseDriveName, cfg.Database.ConnectionString())
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	srv := server.New()
-	_ = srv.UseAccessLog()
-	srv.HandleFunc("/test", "GET", func(ctx ruffe.Context) error {
-		ctx.Result(200, "fine")
-		return nil
-	})
+	srv.UseAccessLog()
+	srv.RecoverPanic()
 
+	// TODO: add handlers
+
+	log.Infoln("starting server on", cfg.Server.Addr)
 	go srv.ListenAndServe(cfg.Server.Addr)
 	graceful()
 }
 
 func graceful() {
-	// handling signals. blocking main goroutine
+	// handling signals. blocking main gorqoutine
 	sigc := make(chan os.Signal, 1)
 	signal.Notify(sigc, syscall.SIGTERM, syscall.SIGQUIT)
 	for {
