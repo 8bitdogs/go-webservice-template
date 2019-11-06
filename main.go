@@ -5,8 +5,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"webservice-template/database"
-	"webservice-template/server"
+	"github.com/8bitdogs/go-webservice-template/database"
+	"github.com/8bitdogs/go-webservice-template/server"
 
 	"github.com/8bitdogs/log"
 	_ "github.com/lib/pq"

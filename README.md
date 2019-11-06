@@ -1,5 +1,5 @@
-# webservice-template
+# go-webservice-template
 
-change webservice-template to you folder name with this script
+change current template name to your folder name with this script
 ```
 ./fixname 
