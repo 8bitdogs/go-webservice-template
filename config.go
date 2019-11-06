@@ -3,8 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/antonmashko/log"
-
+	"github.com/8bitdogs/log"
 	"github.com/antonmashko/envconf"
 )
 

@@ -8,7 +8,7 @@ import (
 	"webservice-template/database"
 	"webservice-template/server"
 
-	"github.com/antonmashko/log"
+	"github.com/8bitdogs/log"
 	_ "github.com/lib/pq"
 )
 

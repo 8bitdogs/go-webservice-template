@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"runtime/debug"
 
+	"github.com/8bitdogs/log"
 	"github.com/8bitdogs/ruffe"
-	"github.com/antonmashko/log"
 )
 
 type Server struct {
