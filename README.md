@@ -1,5 +1,5 @@
 # go-webservice-template
 
-change current template name to your folder name with this script
+for fixing imports and README.md file run prepare script
 ```
-./fixname 
+./prepare.sh

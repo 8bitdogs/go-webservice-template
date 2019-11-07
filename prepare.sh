@@ -5,6 +5,11 @@ template_name='go-webservice-template'
 gopath_template_name='github.com/8bitdogs/'$template_name
 
 new_name=$(basename $(pwd))
+
+echo 'prepare README.md file'
+echo '# '$new_name > README.md 
+echo 'done'
+
 gopath=$(go env GOPATH)
 p=$(pwd)
 
@@ -12,12 +17,14 @@ if [[ $p == *"$gopath"* ]]; then
     new_name=${p#"$gopath/src/"}
 fi
 
-echo $gopath_template_name
-echo $new_name
+prefix=''
+if [ "$(uname)" == "Darwin" ]; then
+    prefix='""'
+fi
 
-echo 'applying new name='$new_name' in import path and another resources'
+echo 'applying new prefix '$new_name' in imports'
 
 find * -type f \( ! -name '*.sh' \) -exec \
-    sed -i "s#$gopath_template_name#$new_name#g" {} +
+    sed -i $prefix "s#$gopath_template_name#$new_name#g" {} +
 
 echo 'done. now you can remove this file'
