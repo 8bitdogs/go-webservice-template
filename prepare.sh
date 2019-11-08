@@ -17,14 +17,14 @@ if [[ $p == *"$gopath"* ]]; then
     new_name=${p#"$gopath/src/"}
 fi
 
-prefix=''
+sedarg=(-i)
 if [ "$(uname)" == "Darwin" ]; then
-    prefix='""'
+    sedarg=(-i '')
 fi
 
 echo 'applying new prefix '$new_name' in imports'
 
 find * -type f \( ! -name '*.sh' \) -exec \
-    sed -i $prefix "s#$gopath_template_name#$new_name#g" {} +
+    sed "${sedarg[@]}" "s#$gopath_template_name#$new_name#g" {} +
 
 echo 'done. now you can remove this file'
